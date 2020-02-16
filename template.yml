@@ -1,0 +1,21 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  nuc_information:
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: 'The API for NUC Information'
+    api:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.handler
+        Initializer: index.initializer
+        Timeout: 25
+        Runtime: python3
+        CodeUri: './'
+      Events:
+        httpTrigger:
+          Type: HTTP
+          Properties:
+            AuthType: ANONYMOUS
+            Methods: ['POST', 'GET']
