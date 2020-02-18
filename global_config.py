@@ -3,8 +3,11 @@ import json
 import bs4
 
 proxies = {}
+
+NAME = ""
+PASSWD = ""
+
 vpn_cookies = ""
-course_table_url = "http://202.207.177.39:8089/lnkbcxAction.do"
 
 redis_host = ""
 redis_port = 6379
@@ -16,7 +19,11 @@ mysql_password = ""
 
 qiniu_access_key = ''
 qiniu_secret_key = ''
+
 no_limit_url = {"GetNews"}
+stopped_list = {"PhysicalFitnessTestLogin", "PhysicalFitnessTestGetScoreList", "LoginPhyEws",
+                "GetCourse", "GetIdleClassroom"}
+dont_cache_url = {"Token", "ToiCal", "GetNews"}
 
 guest_data = {}
 with open("guest_data.json", encoding="utf-8") as file:
@@ -25,9 +32,9 @@ with open("guest_data.json", encoding="utf-8") as file:
 request_limit = 0
 request_limit_max = 20
 
-dont_cache_url = {"Token", "ToiCal", "GetNews"}
-
 appSecret = ''
+
+course_table_url = "http://202.207.177.39:8089/lnkbcxAction.do"
 
 
 def get_term_code(session):

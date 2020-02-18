@@ -1,3 +1,6 @@
+influxdb-logging 
+influxdb
+qqwry-py3
 rsa
 apscheduler
 html2text

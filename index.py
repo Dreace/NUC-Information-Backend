@@ -3,15 +3,13 @@ import gevent.monkey
 gevent.monkey.patch_all()
 import time
 
-from global_config import no_limit_url, guest_data, request_limit_max, appSecret, dont_cache_url, request_limit
+from global_config import no_limit_url, guest_data, appSecret, dont_cache_url, stopped_list
 import load_task
 from scheduler import scheduler
 import plugin
 from pywsgi import WSGIServer
 from os import path
-from flask import Flask, redirect
-from flask import request
-from flask import Response
+from flask import Flask, redirect, request, Response, g
 import hashlib
 # from werkzeug.contrib.fixers import ProxyFix
 import traceback
@@ -21,12 +19,18 @@ import json
 from redis_connect import redis_request_limit, redis_cache
 from logger import root_logger
 import logging
+from qqwry import QQwry
+from influxdb import InfluxDBClient
+
+q = QQwry()
+q.load_file('data/qqwry.dat')
+client = InfluxDBClient('localhost', 18086, database="nuc_information_log")
 
 app = Flask(__name__)
 flask_compress.Compress(app)
 
 
-@app.errorhandler(404)
+# @app.errorhandler(404)
 def page_not_found(e):
     app.logger.warning("由于 404 重定向 %s", request.url)
     return redirect('https://dreace.top')
@@ -34,8 +38,7 @@ def page_not_found(e):
 
 @app.errorhandler(Exception)
 def on_sever_error(e):
-    global request_limit
-    traceback.print_exc()
+    logging.exception(traceback.format_exc())
     message = "服务器错误"
     error = "未知错误"
     code = -1
@@ -45,17 +48,26 @@ def on_sever_error(e):
     return resp
 
 
-request_limit = request_limit
+@app.before_request
+def a():
+    g.request_start_time = time.time()
 
 
 # @app.before_request
 def check_auth():
-    global request_limit
-    request_limit += 1
     message = "OK"
     error = ""
     code = 0
     data = ""
+    if request.path == '/':
+        return redirect("https://dreace.top")
+    if request.path[1:] in stopped_list:
+        logging.warning("未开放查询")
+        message = "未开放查询"
+        code = -4
+        resp = Response(json.dumps({"message": message, "error": error, "code": code, "data": data}),
+                        mimetype='application/json')
+        return resp
     name = request.args.get('name', "")
     args = dict(request.args)
     if request.url.find("MessagePush") == -1:
@@ -68,7 +80,7 @@ def check_auth():
             logging.warning("拒绝本次请求")
             message = "拒绝本次请求"
             error = "拒绝本次请求"
-            code = -3
+            code = -2
         # if name and time.localtime(time.time())[3] < 7:
         #     logging.warning("非服务时间", )
         #     message = "非服务时间"
@@ -78,7 +90,7 @@ def check_auth():
             logging.warning("拒绝了 %s 的请求", request.args["key"])
             message = "操作过频繁"
             error = "操作过频繁"
-            code = -1
+            code = -5
         if name == "guest" and request.path[1:] in guest_data.keys():
             data = guest_data[request.path[1:]]
         if code != 0 or len(data) > 1:
@@ -93,13 +105,6 @@ def check_auth():
             res["cached"] = 1
             resp = Response(json.dumps(res), mimetype='application/json')
             logging.info("命中缓存 %s", unquote(url))
-            return resp
-        if request_limit >= request_limit_max:
-            logging.warning("服务器繁忙")
-            message = "服务器繁忙"
-            code = -1
-            resp = Response(json.dumps({"message": message, "error": error, "code": code, "data": data}),
-                            mimetype='application/json')
             return resp
 
 
@@ -128,10 +133,29 @@ def check_sign(args: dict):
 
 @app.after_request
 def cache_request(response):
-    global request_limit
-    request_limit -= 1
     try:
         res = json.loads(response.get_data())
+        # try:
+        #     ip = request.headers.get("X-Forwarded-For", request.remote_addr)
+        #     body = [
+        #         {
+        #             "measurement": "request_log",
+        #             "tags": {
+        #                 "path": request.path,
+        #                 "ip": ip
+        #             },
+        #             "fields": {
+        #                 "code": res["code"],
+        #                 "user_name": request.args.get('name', None),
+        #                 "cost_time": time.time() - g.request_start_time,
+        #                 "ip_location": q.lookup(ip)[0],
+        #                 "is_cache": "cached" in res
+        #             },
+        #         }
+        #     ]
+        #     client.write_points(body)
+        # except:
+        #     logging.error(traceback.format_exc())
         if "cached" not in res.keys() and res["code"] == 0 and request.path[1:] not in dont_cache_url:
             url = request.path + "?" + get_cache_key(dict(request.args))
             redis_cache.set(hashlib.md5(url.encode()).hexdigest(), json.dumps(res), 5400)

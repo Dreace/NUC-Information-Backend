@@ -2,7 +2,6 @@ import logging
 from logging.config import dictConfig
 
 import coloredlogs
-
 dictConfig({
     'version': 1,
     'formatters': {'default': {
@@ -24,6 +23,11 @@ dictConfig({
             # 'maxBytes': 8 * 1024 * 1000,
             'backupCount': 7,
         },
+        # 'influx': {
+        #     'class': 'influxdb_logging.AsyncInfluxHandler',
+        #     "measurement": "root_log", "host": 'localhost', "port": 18086,
+        #     "database": 'nuc_information_log'
+        # }
     },
     'root': {
         'level': 'INFO',
@@ -31,8 +35,8 @@ dictConfig({
     }
 })
 
-
 root_logger = logging.getLogger("root")
+
 coloredlogs.DEFAULT_LEVEL_STYLES = dict(spam=dict(color='green', faint=True),
                                         debug=dict(color='green'),
                                         verbose=dict(color='blue'),

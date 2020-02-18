@@ -25,7 +25,7 @@ def get_grade(name, passwd):
     else:
         session = login(name, passwd)
         if isinstance(session, str):
-            code = -1
+            code = -3
             message = session
         else:
             post_data = {
@@ -38,10 +38,30 @@ def get_grade(name, passwd):
                 if dict_key not in grades:
                     grades[dict_key] = []
                 grades[dict_key].append({
-                    "Course_Name": item["kcmc"],
-                    "Course_Credit": item["xf"] if "xf" in item else "",
+                    "Course_Name": item["kcmc"] if "kcmc" in item else "",
+                    "Course_Credit": float(item["xf"]) if "xf" in item else "",
                     "Course_Grade": item["bfzcj"],
-                    "Course_Grade_Point": item["jd"] if "jd" in item else ""
+                    "Course_Grade_Point": float(item["jd"]) if "jd" in item else ""
                 })
             data = list(grades.values())
+            g_a, g_b = 0, 0
+            for item_i in data:
+                a, b = 0, 0
+                for item_j in item_i:
+                    if item_j["Course_Credit"] and item_j["Course_Grade_Point"]:
+                        t = item_j["Course_Credit"] * item_j["Course_Grade_Point"]
+                        a += t
+                        g_a += t
+                        b += item_j["Course_Credit"]
+                        g_b += item_j["Course_Credit"]
+                if b:
+                    item_i.append({
+                        "Course_Name": "学期平均绩点",
+                        "Course_Grade_Point": round(a / b, 2)
+                    })
+            if g_b:
+                data[-1].append({
+                    "Course_Name": "总平均绩点",
+                    "Course_Grade_Point": round(g_a / g_b, 2)
+                })
     return {"message": message, "code": code, "data": data}

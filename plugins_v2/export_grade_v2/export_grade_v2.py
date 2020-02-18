@@ -39,7 +39,7 @@ def get_grade(name, passwd, file_type):
     else:
         session = login(name, passwd)
         if isinstance(session, str):
-            code = -1
+            code = -3
             message = session
         else:
             if file_type == "pdf":
@@ -48,7 +48,7 @@ def get_grade(name, passwd, file_type):
                 }
                 pdf_message = session.post(pdf_url1, data=post_data1).content.decode()
                 if pdf_message.find("可打印") == -1:
-                    code = -1
+                    code = -3
                     message = pdf_message
                 else:
                     pdf_url = session.post(pdf_url2, data=post_data1).content.decode().replace("\\", "").replace("\"",
@@ -63,7 +63,7 @@ def get_grade(name, passwd, file_type):
                             "url": "https://blog-cdn.dreace.top/" + file_name
                         }
                     else:
-                        code = -1
+                        code = -3
                         message = pdf_url
             else:
                 xls_content = session.post(excel_url, data=post_data).content

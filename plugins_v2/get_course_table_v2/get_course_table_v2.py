@@ -25,7 +25,7 @@ def get_course_table(name, passwd):
     else:
         session = login(name, passwd)
         if isinstance(session, str):
-            code = -1
+            code = -3
             message = session
         else:
             post_data = {

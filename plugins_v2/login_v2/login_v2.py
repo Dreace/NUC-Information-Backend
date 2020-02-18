@@ -22,10 +22,10 @@ def login_(name, passwd):
     code = 0
     data = "0"
     if len(name) < 1 or len(passwd) < 1:
-        code = -2
+        code = -3
         message = "账号密码不能为空"
     if name.strip() != name:
-        code = -1
+        code = -3
         message = "用户名包含空字符"
     else:
         session = login(name, passwd, True)
