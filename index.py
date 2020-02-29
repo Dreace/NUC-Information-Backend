@@ -11,7 +11,6 @@ from pywsgi import WSGIServer
 from os import path
 from flask import Flask, redirect, request, Response, g
 import hashlib
-# from werkzeug.contrib.fixers import ProxyFix
 import traceback
 import flask_compress
 from urllib.parse import unquote, quote
@@ -19,12 +18,7 @@ import json
 from redis_connect import redis_request_limit, redis_cache
 from logger import root_logger
 import logging
-from qqwry import QQwry
-from influxdb import InfluxDBClient
-
-q = QQwry()
-q.load_file('data/qqwry.dat')
-client = InfluxDBClient('localhost', 18086, database="nuc_information_log")
+from utils.gol import global_values
 
 app = Flask(__name__)
 flask_compress.Compress(app)
@@ -53,7 +47,7 @@ def a():
     g.request_start_time = time.time()
 
 
-# @app.before_request
+@app.before_request
 def check_auth():
     message = "OK"
     error = ""
@@ -71,28 +65,32 @@ def check_auth():
     name = request.args.get('name', "")
     args = dict(request.args)
     if request.url.find("MessagePush") == -1:
-        if not check_sign(args):
-            logging.warning("身份认证失败")
-            message = "身份认证失败"
-            error = "身份认证失败"
-            code = -2
-        if "ts" not in args.keys() or int(args["ts"]) + 3e5 < int(time.time() * 1000):
-            logging.warning("拒绝本次请求")
-            message = "拒绝本次请求"
-            error = "拒绝本次请求"
-            code = -2
+        # if not check_sign(args):
+        #     logging.warning("身份认证失败")
+        #     message = "身份认证失败"
+        #     error = "身份认证失败"
+        #     code = -2
+        # if "ts" not in args.keys() or int(args["ts"]) + 3e5 < int(time.time() * 1000):
+        #     logging.warning("拒绝本次请求")
+        #     message = "拒绝本次请求"
+        #     error = "拒绝本次请求"
+        #     code = -2
         # if name and time.localtime(time.time())[3] < 7:
         #     logging.warning("非服务时间", )
         #     message = "非服务时间"
         #     error = "非服务时间"
         #     code = -1
-        elif request.path[1:] not in no_limit_url and not check_request_limit(request.args["key"]):
-            logging.warning("拒绝了 %s 的请求", request.args["key"])
-            message = "操作过频繁"
-            error = "操作过频繁"
-            code = -5
+        # elif request.path[1:] not in no_limit_url and not check_request_limit(request.args["key"]):
+        #     logging.warning("拒绝了 %s 的请求", request.args["key"])
+        #     message = "操作过频繁"
+        #     error = "操作过频繁"
+        #     code = -5
         if name == "guest" and request.path[1:] in guest_data.keys():
             data = guest_data[request.path[1:]]
+        if not global_values.get_value("proxy_status_ok"):
+            code = -7
+            message = "服务器网络故障"
+            logging.warning("服务器网络故障")
         if code != 0 or len(data) > 1:
             resp = Response(json.dumps({"message": message, "error": error, "code": code, "data": data}),
                             mimetype='application/json')
@@ -135,27 +133,6 @@ def check_sign(args: dict):
 def cache_request(response):
     try:
         res = json.loads(response.get_data())
-        # try:
-        #     ip = request.headers.get("X-Forwarded-For", request.remote_addr)
-        #     body = [
-        #         {
-        #             "measurement": "request_log",
-        #             "tags": {
-        #                 "path": request.path,
-        #                 "ip": ip
-        #             },
-        #             "fields": {
-        #                 "code": res["code"],
-        #                 "user_name": request.args.get('name', None),
-        #                 "cost_time": time.time() - g.request_start_time,
-        #                 "ip_location": q.lookup(ip)[0],
-        #                 "is_cache": "cached" in res
-        #             },
-        #         }
-        #     ]
-        #     client.write_points(body)
-        # except:
-        #     logging.error(traceback.format_exc())
         if "cached" not in res.keys() and res["code"] == 0 and request.path[1:] not in dont_cache_url:
             url = request.path + "?" + get_cache_key(dict(request.args))
             redis_cache.set(hashlib.md5(url.encode()).hexdigest(), json.dumps(res), 5400)
@@ -180,6 +157,7 @@ def check_request_limit(user_key):
 
 
 def initializer(context=None):
+    global_values.set_value("proxy_status_ok", True)
     plugins = plugin.load_plugins(
         path.join(path.dirname(__file__), 'plugins'),
         'plugins'
@@ -195,7 +173,6 @@ def initializer(context=None):
         path.join(path.dirname(__file__), 'tasks'),
         'tasks')
     scheduler.start()
-    # print(app.url_map)
 
 
 if __name__ == '__main__':

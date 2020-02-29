@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 
@@ -55,7 +56,8 @@ def get_grade(name, passwd, file_type):
                                                                                                                  "")
                     if pdf_url.find("成功") != -1:
                         pdf_content = session.get("http://222.31.49.139" + pdf_url.split("#")[0]).content
-                        file_name = "files/%s-grade.pdf" % name
+                        file_name = "files/%s-grade-%s.pdf" % \
+                                    (name, hashlib.md5((name + appSecret).encode("utf-8")).hexdigest()[:5])
                         with open(file_name, "wb") as pdf_file:
                             pdf_file.write(pdf_content)
                         upload_to_qiniu(file_name)
@@ -67,7 +69,8 @@ def get_grade(name, passwd, file_type):
                         message = pdf_url
             else:
                 xls_content = session.post(excel_url, data=post_data).content
-                file_name = "files/%s-grade.xls" % name
+                file_name = "files/%s-grade-%s.xls" % \
+                            (name, hashlib.md5((name + appSecret).encode("utf-8")).hexdigest()[:5])
                 with open(file_name, "wb") as xls_file:
                     xls_file.write(xls_content)
                 upload_to_qiniu(file_name)

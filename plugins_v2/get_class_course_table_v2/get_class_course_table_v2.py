@@ -6,7 +6,7 @@ from flask import request
 
 from plugins_v2._login_v2.login_v2 import login
 from . import api
-from .config import class_course_table_url, NAME, PASSWD
+from .config import class_course_table_url, pre_class_course_table_url, NAME, PASSWD
 
 
 @api.route('/GetClassCourseTable', methods=['GET'])
@@ -35,8 +35,10 @@ def get_class_course_table(class_name):
                 "xnm": "2019",
                 "xqm": "12",
                 "xqh_id": "01",
-                "jg_id": "N07",
-                "zyh_id": "N07N080901",
+                "njdm_id": "",
+                "jg_id": "",
+                "zyh_id": "",
+                "zyfx_id": "",
                 "bh_id": class_name,
                 "_search": "false",
                 "queryModel.showCount": "1",
@@ -48,16 +50,35 @@ def get_class_course_table(class_name):
                 message = "无效的班级号"
             else:
                 post_data = {
-                    "xnm": 2019,
-                    "xqm": 12,
+                    "xnm": "2019",
+                    "xqm": "12",
                     "xqh_id": "01",
-                    "njdm_id": pre_data["items"][0]["njdm_id"],
-                    "zyh_id": "N07N080901",
+                    "njdm_id": "",
+                    "jg_id": "",
+                    "zyh_id": "",
+                    "zyfx_id": "",
                     "bh_id": class_name,
-                    "tjkbzdm": 1,
-                    "tjkbzxsdm": 0,
-                    "zxszjjs": False
+                    "_search": "false",
+                    "queryModel.showCount": "1",
                 }
+                pre_data = session.post(pre_class_course_table_url, data=post_data).json()
+                if not pre_data["items"]:
+                    code = -6
+                    message = "无效的班级号"
+                else:
+                    post_data = {
+                        "xnm": "2019",
+                        "xqm": "12",
+                        "xnmc": "2019-2020",
+                        "xqmmc": "2",
+                        "xqh_id": "01",
+                        "njdm_id": pre_data["items"][0]["njdm_id"],
+                        "zyh_id": pre_data["items"][0]["zyh_id"],
+                        "bh_id": class_name,
+                        "tjkbzdm": "1",
+                        "tjkbzxsdm": "0",
+                        # "zxszjjs": True
+                    }
 
                 course_table = session.post(class_course_table_url, data=post_data).json()
                 tables = []
@@ -73,14 +94,14 @@ def get_class_course_table(class_name):
                         "Course_Name": table["kcmc"],
                         # "Course_Credit": table["xf"],
                         # "Course_Test_Type": table["khfsmc"],
-                        "Course_Teacher": table["xm"],
+                        "Course_Teacher": table.get("xm"),
                         "Course_Week": table["zcd"],
                         "Course_Color": name_dict[table["kcmc"]],
                         "Course_Time": table["xqj"],
                         "Course_Start": spited[0],
                         "Course_Length": int(spited[1]) - int(spited[0]) + 1,
-                        "Course_Building": table["xqmc"],
-                        "Course_Classroom": table["cdmc"]
+                        "Course_Building": table.get("xqmc"),
+                        "Course_Classroom": table.get("cdmc")
                     })
                 # for d in course_table["sjkList"]:
                 #     tables.append({

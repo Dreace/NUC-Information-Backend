@@ -22,18 +22,16 @@ dictConfig({
             'when': 'midnight',
             # 'maxBytes': 8 * 1024 * 1000,
             'backupCount': 7,
-        },
-        # 'influx': {
-        #     'class': 'influxdb_logging.AsyncInfluxHandler',
-        #     "measurement": "root_log", "host": 'localhost', "port": 18086,
-        #     "database": 'nuc_information_log'
-        # }
+        }
     },
     'root': {
         'level': 'INFO',
         'handlers': ['console', 'file']
     }
 })
+
+logging.getLogger('apscheduler').setLevel('WARNING')
+logging.getLogger('apscheduler').propagate = False
 
 root_logger = logging.getLogger("root")
 

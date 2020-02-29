@@ -1,4 +1,4 @@
-from global_config import qiniu_access_key,qiniu_secret_key
+from global_config import qiniu_access_key,qiniu_secret_key,appSecret
 pdf_url1 = "http://222.31.49.139/jwglxt/bysxxcx/xscjzbdy_cxXsCount.html?gnmkdm=N558020"
 pdf_url2 = "http://222.31.49.139/jwglxt/bysxxcx/xscjzbdy_dyList.html?gnmkdm=N558020"
 excel_url = "http://222.31.49.139/jwglxt/cjcx/cjcx_dcListByXs.html"

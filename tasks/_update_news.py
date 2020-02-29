@@ -38,6 +38,8 @@ def update_article(type_id):
             if "class" not in a.attrs.keys():
                 try:
                     res = re.search(type_id + r"/([0-9]{0,}).htm", a["href"])
+                    if not res:
+                        continue
                     news_id = res.group(1)
                     if redis_news.exists(type_name + news_id):
                         # if redis_server.llen(type_name+"_list")>0 and id == json.loads(redis_server.lindex(type_name+"_list",0))["id"]:
@@ -60,7 +62,7 @@ def update_article(type_id):
 
                 except:
                     logging.error(traceback.format_exc())
-                    logging.error(a["title"], a["href"])
+                    logging.error("%s %s" % (a["title"], a["href"]))
             elif a["class"][0] == "Next":
                 flag = False
                 if a.string == "下页":

@@ -2,16 +2,16 @@ import json
 
 import bs4
 
-proxies = {}
-
 NAME = ""
 PASSWD = ""
+proxies = {}
 
+proxy_status_url = ""
 vpn_cookies = ""
 
 redis_host = ""
-redis_port = 6379
 redis_password = ""
+redis_port = 6379
 
 mysql_host = ""
 mysql_user = ""
@@ -20,17 +20,15 @@ mysql_password = ""
 qiniu_access_key = ''
 qiniu_secret_key = ''
 
-no_limit_url = {"GetNews"}
-stopped_list = {"PhysicalFitnessTestLogin", "PhysicalFitnessTestGetScoreList", "LoginPhyEws",
-                "GetCourse", "GetIdleClassroom"}
-dont_cache_url = {"Token", "ToiCal", "GetNews"}
-
 guest_data = {}
 with open("guest_data.json", encoding="utf-8") as file:
     guest_data = json.loads(file.read())
 
-request_limit = 0
-request_limit_max = 20
+
+no_limit_url = {"GetNews"}
+dont_cache_url = {"Token", "ToiCal", "GetNews"}
+stopped_list = {"PhysicalFitnessTestLogin", "PhysicalFitnessTestGetScoreList", "LoginPhyEws",
+                "GetCourse", "GetIdleClassroom"}
 
 appSecret = ''
 
