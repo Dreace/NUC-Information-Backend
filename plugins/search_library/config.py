@@ -1,6 +1,5 @@
 from global_config import *
-
-headers = {"Cookie": vpn_cookies}
+from utils.gol import global_values
 post_data = {
     "nkzh": ""
 }

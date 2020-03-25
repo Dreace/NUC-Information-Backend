@@ -5,8 +5,8 @@ import bs4
 NAME = ""
 PASSWD = ""
 proxies = {}
-
-proxy_status_url = ""
+proxy_status_url = "http://127.0.0.1:10001/status"
+get_cookies_url = "http://127.0.0.1:10001/getCookies"
 vpn_cookies = ""
 
 redis_host = ""
@@ -24,11 +24,13 @@ guest_data = {}
 with open("guest_data.json", encoding="utf-8") as file:
     guest_data = json.loads(file.read())
 
-
 no_limit_url = {"GetNews"}
 dont_cache_url = {"Token", "ToiCal", "GetNews"}
-stopped_list = {"PhysicalFitnessTestLogin", "PhysicalFitnessTestGetScoreList", "LoginPhyEws",
-                "GetCourse", "GetIdleClassroom"}
+stopped_list = {"LoginPhyEws", "GetIdleClassroom"}
+need_proxy_url = {"SearchLibrary", "v2/GetCourseTable", "v2/ExportGrade", "v2/GetGrade", "v2/Login",
+                  "PhysicalFitnessTestGetScoreList", "PhysicalFitnessTestGetScore", "PhysicalFitnessTestLogin",
+                  "GetBookAvailableDetail", "GetClassCourseTable", "SearchLibraryByISBN", "SearchLibrary", "GetCourse",
+                  "ToiCal"}
 
 appSecret = ''
 

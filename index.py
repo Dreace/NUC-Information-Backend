@@ -3,7 +3,7 @@ import gevent.monkey
 gevent.monkey.patch_all()
 import time
 
-from global_config import no_limit_url, guest_data, appSecret, dont_cache_url, stopped_list
+from global_config import guest_data, appSecret, dont_cache_url, stopped_list, need_proxy_url
 import load_task
 from scheduler import scheduler
 import plugin
@@ -47,7 +47,7 @@ def a():
     g.request_start_time = time.time()
 
 
-@app.before_request
+# @app.before_request
 def check_auth():
     message = "OK"
     error = ""
@@ -87,7 +87,7 @@ def check_auth():
         #     code = -5
         if name == "guest" and request.path[1:] in guest_data.keys():
             data = guest_data[request.path[1:]]
-        if not global_values.get_value("proxy_status_ok"):
+        if request.path[1:] in need_proxy_url and not global_values.get_value("proxy_status_ok"):
             code = -7
             message = "服务器网络故障"
             logging.warning("服务器网络故障")
@@ -168,7 +168,6 @@ def initializer(context=None):
     ))
     for i in plugins:
         app.register_blueprint(i.api)
-
     load_task.load_tasks(
         path.join(path.dirname(__file__), 'tasks'),
         'tasks')

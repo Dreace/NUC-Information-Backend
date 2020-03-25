@@ -1,10 +1,8 @@
-influxdb-logging 
-influxdb
+PyCrypto
 qqwry-py3
 rsa
 apscheduler
 html2text
-tornado
 qiniu
 html5lib
 lxml

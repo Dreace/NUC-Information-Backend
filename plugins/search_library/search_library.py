@@ -1,5 +1,3 @@
-import json
-import logging
 import re
 import traceback
 from urllib.parse import quote
@@ -14,22 +12,24 @@ from .config import *
 
 requests.packages.urllib3.disable_warnings()
 session = requests.session()
-session.headers = headers
+session.proxies = proxies
 session.verify = False
 
 
 @api.route('/SearchLibrary', methods=['GET'])
 def search_library():
-    type = request.args.get("type", "正题名")
+    session.headers = {"Cookie": global_values.get_value("vpn_cookies")}
+    book_type = request.args.get("type", "正题名")
     book_name = request.args.get('keyword', "")
     page = request.args.get('page', "1")
-    res = search(type, book_name, page)
+    res = search(book_type, book_name, page)
     resp = Response(json.dumps(res), mimetype='application/json')
     return resp
 
 
 @api.route('/SearchLibraryByISBN', methods=['GET'])
 def search_library_isbn():
+    session.headers = {"Cookie": global_values.get_value("vpn_cookies")}
     isbn = request.args.get('keyword', "")
     res = search_by_isbn(isbn)
     resp = Response(json.dumps(res), mimetype='application/json')
@@ -38,6 +38,7 @@ def search_library_isbn():
 
 @api.route('/GetBookAvailableDetail', methods=['GET'])
 def get_book_available_detail():
+    session.headers = {"Cookie": global_values.get_value("vpn_cookies")}
     book_id = request.args.get('BookID', "")
     res = get_available_book_detail(book_id)
     resp = Response(json.dumps(res), mimetype='application/json')
@@ -50,7 +51,7 @@ def get_available_book_detail(book_id) -> dict:
     code = 0
     data = []
     try:
-        url = "https://vpn.nuc.edu.cn:4433/web/0/http/2/222.31.39.3:8080/pft/showmarc/showbookitems.asp?nTmpKzh=%s" % book_id
+        url = "http://222-31-39-3-8080-p.vpn.nuc1941.top:8118//pft/showmarc/showbookitems.asp?nTmpKzh=%s" % book_id
         content = session.get(url).content.decode("utf-8")
         soups = bs4.BeautifulSoup(content, "html.parser")
         trs = soups.find_all("tr")
@@ -83,7 +84,7 @@ def search_by_isbn(isbn) -> dict:
         else:
             isbn = isbn[:3] + "-" + isbn[3:4] + "-" + isbn[4:7] + "-" + isbn[7:12] + "-" + isbn[12:]
         try:
-            url = "https://vpn.nuc.edu.cn:4433/web/0/http/2/222.31.39.3:8080/pft/wxjs/bk_s_Q_fillpage.asp?q=标准编号=[[%s*]]" \
+            url = "http://222-31-39-3-8080-p.vpn.nuc1941.top:8118//pft/wxjs/bk_s_Q_fillpage.asp?q=标准编号=[[%s*]]" \
                   "&nmaxcount=&nSetPageSize=10&orderby=&Research=1&page=1&opt=1" % (quote(isbn))
             content = session.get(url).content.decode('utf-8')
             re_book_ids = re.findall(r"ShowItem\('([0-9]*)'\)", content)
@@ -105,14 +106,14 @@ def search_by_isbn(isbn) -> dict:
     return {"message": message, "error": error, "code": code, "data": data}
 
 
-def search(type, keyword, page=1) -> dict:
+def search(book_type, keyword, page=1) -> dict:
     message = "OK"
     error = ""
     code = 0
     data = {}
     try:
-        url = "https://vpn.nuc.edu.cn:4433/web/0/http/2/222.31.39.3:8080/pft/wxjs/bk_s_Q_fillpage.asp?q=%s=[[%s*]]" \
-              "&nmaxcount=&nSetPageSize=10&orderby=&Research=1&page=%s&opt=1" % (quote(type), quote(keyword), page)
+        url = "http://222-31-39-3-8080-p.vpn.nuc1941.top:8118//pft/wxjs/bk_s_Q_fillpage.asp?q=%s=[[%s*]]" \
+              "&nmaxcount=&nSetPageSize=10&orderby=&Research=1&page=%s&opt=1" % (quote(book_type), quote(keyword), page)
         content = session.get(url).content.decode('utf-8')
         re_book_ids = re.findall(r"ShowItem\('([0-9]*)'\)", content)
         records_group = re.search(r"共([0-9]*)条记录", content)
@@ -133,7 +134,7 @@ def search(type, keyword, page=1) -> dict:
 
 
 def get_book_detail(book_id) -> dict:
-    url = "https://vpn.nuc.edu.cn:4433/web/0/http/2/222.31.39.3:8080/pft/showmarc/table.asp?nTmpKzh=%s" % book_id
+    url = "http://222-31-39-3-8080-p.vpn.nuc1941.top:8118//pft/showmarc/table.asp?nTmpKzh=%s" % book_id
     content = session.get(url).content
     soups = bs4.BeautifulSoup(content, "html.parser")
     details = soups.find(id="tabs-2").find_all("tr")
@@ -186,7 +187,7 @@ def get_book_detail(book_id) -> dict:
 
 
 def get_book_available(boo_id) -> str:
-    url = "https://vpn.nuc.edu.cn:4433/web/0/http/2/222.31.39.3:8080/pft/wxjs/BK_getKJFBS.asp"
+    url = "http://222-31-39-3-8080-p.vpn.nuc1941.top:8118//pft/wxjs/BK_getKJFBS.asp"
     post_data["nkzh"] = boo_id
     content = session.post(url, data=post_data).content.decode()
     return content

@@ -20,8 +20,8 @@ def get_course(keywords):
     error = ""
     code = 0
     data = []
-    sql = "".join(map(lambda k: "(?=.*%s)" % k, keywords.split(" ")))
-    sql = "SELECT * FROM `课程-2020-1` WHERE CONCAT_WS('', `学院`, `课程名`, `教师`) REGEXP '%s^.*$'" % sql
+    keywords_map = "".join(map(lambda k: "(?=.*%s)" % k, keywords.split(" ")))
+    sql = "SELECT * FROM `课程-2020-1` WHERE CONCAT_WS('', `学院`, `课程名`, `教师`) REGEXP '%s^.*$'" % keywords_map
     course_db.ping(reconnect=True)
     course_cursor.execute(sql)
     data = []
