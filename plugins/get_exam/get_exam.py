@@ -3,7 +3,7 @@ import json
 from flask import Response
 from flask import request
 
-from mysql_connect import exam_cursor as cursor, exam_db as db
+from utils.sql_helper import SQLHelper
 from . import api
 
 
@@ -26,10 +26,7 @@ def get_exam(keywords):
         args = (j, keywords.split()[0])
         sql += "`%s` LIKE '%%%s%%' OR " % (args)
     if sql.find("OR") != 0:
-        db.ping(reconnect=True)
-        cursor.execute(sql[:-4])
-        # 获取所有记录列表
-        results = cursor.fetchall()
+        results = SQLHelper.fetch_all(sql[:-4])
         for row in results:
             r = {
                 "course_name": row[2],
@@ -38,6 +35,7 @@ def get_exam(keywords):
                 "class": row[5],
                 "classroom": row[6]
             }
+            # TODO 若重新启用，把上面改为列名
             data.append(r)
         for j in keywords.split()[1:]:
             a = []

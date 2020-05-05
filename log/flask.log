@@ -1,0 +1,138 @@
+[2020-04-23 20:58:29,348 load_plugin.py load_plugin 33] INFO 加载 plugins.balance
+[2020-04-23 20:58:29,356 load_plugin.py load_plugin 33] INFO 加载 plugins.get_exam
+[2020-04-23 20:58:29,360 load_plugin.py load_plugin 33] INFO 加载 plugins.get_idle_classroom
+[2020-04-23 20:58:29,365 load_plugin.py load_plugin 33] INFO 加载 plugins.get_news
+[2020-04-23 20:58:29,370 load_plugin.py load_plugin 33] INFO 加载 plugins.get_PhyEws_grade
+[2020-04-23 20:58:29,373 load_plugin.py load_plugin 33] INFO 加载 plugins.login_PhyEws
+[2020-04-23 20:58:29,375 load_plugin.py load_plugin 33] INFO 加载 plugins.message_push
+[2020-04-23 20:58:29,378 load_plugin.py load_plugin 33] INFO 加载 plugins.physical_fitness_test
+[2020-04-23 20:58:29,381 load_plugin.py load_plugin 33] INFO 加载 plugins.search_library
+[2020-04-23 20:58:29,430 load_plugin.py load_plugin 33] INFO 加载 plugins.to_ical
+[2020-04-23 20:58:29,431 load_plugin.py load_plugins 66] INFO 成功加载 10 个模块
+[2020-04-23 20:58:29,448 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.export_grade_v2
+[2020-04-23 20:58:29,451 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_class_course_table_v2
+[2020-04-23 20:58:29,453 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_course_table_v2
+[2020-04-23 20:58:29,459 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_course_v2
+[2020-04-23 20:58:29,462 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_grade_v2
+[2020-04-23 20:58:29,467 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_notice_v2
+[2020-04-23 20:58:29,469 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.login_v2
+[2020-04-23 20:58:29,638 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.physical_fitness_test_v2
+[2020-04-23 20:58:29,641 load_plugin.py load_plugins 66] INFO 成功加载 8 个模块
+[2020-04-23 20:58:29,707 load_task.py load_task 17] INFO 加载 tasks.check_proxy
+[2020-04-23 20:58:29,718 load_task.py load_task 17] INFO 加载 tasks.update_news
+[2020-04-23 20:58:29,718 load_task.py load_tasks 50] INFO 成功加载 2 个任务
+[2020-04-23 21:06:51,212 index.py page_not_found 28] WARNING 由于 404 重定向 http://127.0.0.1:100/items/
+[2020-04-23 21:06:51,214 pywsgi.py write 1191] INFO 127.0.0.1 302 "GET /items/ HTTP/1.1" 393 2.98ms
+[2020-04-23 21:07:25,085 index.py on_sever_error 34] ERROR Traceback (most recent call last):
+  File "C:\WorkSpace\Python\PyBot\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\WorkSpace\Python\PyBot\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\WorkSpace\Python\NUC-Information-Backend-Private\plugins_v2\get_notice_v2\get_notice_v2.py", line 28, in handle_get_new_notice
+    res = get_new_notice()
+  File "C:\WorkSpace\Python\NUC-Information-Backend-Private\plugins_v2\get_notice_v2\get_notice_v2.py", line 37, in get_new_notice
+    res = get_one_notice_content(notice_id["id"])
+KeyError: 'id'
+Traceback (most recent call last):
+  File "C:\WorkSpace\Python\PyBot\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\WorkSpace\Python\PyBot\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\WorkSpace\Python\NUC-Information-Backend-Private\plugins_v2\get_notice_v2\get_notice_v2.py", line 28, in handle_get_new_notice
+    res = get_new_notice()
+  File "C:\WorkSpace\Python\NUC-Information-Backend-Private\plugins_v2\get_notice_v2\get_notice_v2.py", line 37, in get_new_notice
+    res = get_one_notice_content(notice_id["id"])
+KeyError: 'id'
+[2020-04-23 21:07:25,085 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 215 154.61ms
+[2020-04-23 21:07:59,710 load_plugin.py load_plugin 33] INFO 加载 plugins.balance
+[2020-04-23 21:07:59,713 load_plugin.py load_plugin 33] INFO 加载 plugins.get_exam
+[2020-04-23 21:07:59,715 load_plugin.py load_plugin 33] INFO 加载 plugins.get_idle_classroom
+[2020-04-23 21:07:59,716 load_plugin.py load_plugin 33] INFO 加载 plugins.get_news
+[2020-04-23 21:07:59,722 load_plugin.py load_plugin 33] INFO 加载 plugins.get_PhyEws_grade
+[2020-04-23 21:07:59,724 load_plugin.py load_plugin 33] INFO 加载 plugins.login_PhyEws
+[2020-04-23 21:07:59,726 load_plugin.py load_plugin 33] INFO 加载 plugins.message_push
+[2020-04-23 21:07:59,728 load_plugin.py load_plugin 33] INFO 加载 plugins.physical_fitness_test
+[2020-04-23 21:07:59,732 load_plugin.py load_plugin 33] INFO 加载 plugins.search_library
+[2020-04-23 21:07:59,777 load_plugin.py load_plugin 33] INFO 加载 plugins.to_ical
+[2020-04-23 21:07:59,777 load_plugin.py load_plugins 66] INFO 成功加载 10 个模块
+[2020-04-23 21:07:59,787 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.export_grade_v2
+[2020-04-23 21:07:59,789 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_class_course_table_v2
+[2020-04-23 21:07:59,791 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_course_table_v2
+[2020-04-23 21:07:59,792 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_course_v2
+[2020-04-23 21:07:59,795 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_grade_v2
+[2020-04-23 21:07:59,801 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_notice_v2
+[2020-04-23 21:07:59,821 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.login_v2
+[2020-04-23 21:08:00,089 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.physical_fitness_test_v2
+[2020-04-23 21:08:00,090 load_plugin.py load_plugins 66] INFO 成功加载 8 个模块
+[2020-04-23 21:08:00,139 load_task.py load_task 17] INFO 加载 tasks.check_proxy
+[2020-04-23 21:08:00,145 load_task.py load_task 17] INFO 加载 tasks.update_news
+[2020-04-23 21:08:00,145 load_task.py load_tasks 50] INFO 成功加载 2 个任务
+[2020-04-23 21:09:16,856 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:09:16,857 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 287 486.34ms
+[2020-04-23 21:10:00,680 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:10:00,680 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 303 322.78ms
+[2020-04-23 21:11:14,843 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:11:14,846 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 412 853.07ms
+[2020-04-23 21:11:28,336 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:11:28,337 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 412 333.33ms
+[2020-04-23 21:11:33,153 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:11:33,155 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 412 335.11ms
+[2020-04-23 21:11:34,692 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:11:34,693 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 412 344.29ms
+[2020-04-23 21:13:50,623 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:13:50,624 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 412 336.08ms
+[2020-04-23 21:14:24,367 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:14:24,368 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 412 726.31ms
+[2020-04-23 21:16:28,026 load_plugin.py load_plugin 33] INFO 加载 plugins.balance
+[2020-04-23 21:16:28,029 load_plugin.py load_plugin 33] INFO 加载 plugins.get_exam
+[2020-04-23 21:16:28,031 load_plugin.py load_plugin 33] INFO 加载 plugins.get_idle_classroom
+[2020-04-23 21:16:28,033 load_plugin.py load_plugin 33] INFO 加载 plugins.get_news
+[2020-04-23 21:16:28,036 load_plugin.py load_plugin 33] INFO 加载 plugins.get_PhyEws_grade
+[2020-04-23 21:16:28,037 load_plugin.py load_plugin 33] INFO 加载 plugins.login_PhyEws
+[2020-04-23 21:16:28,039 load_plugin.py load_plugin 33] INFO 加载 plugins.message_push
+[2020-04-23 21:16:28,041 load_plugin.py load_plugin 33] INFO 加载 plugins.physical_fitness_test
+[2020-04-23 21:16:28,043 load_plugin.py load_plugin 33] INFO 加载 plugins.search_library
+[2020-04-23 21:16:28,081 load_plugin.py load_plugin 33] INFO 加载 plugins.to_ical
+[2020-04-23 21:16:28,082 load_plugin.py load_plugins 66] INFO 成功加载 10 个模块
+[2020-04-23 21:16:28,092 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.export_grade_v2
+[2020-04-23 21:16:28,094 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_class_course_table_v2
+[2020-04-23 21:16:28,096 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_course_table_v2
+[2020-04-23 21:16:28,098 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_course_v2
+[2020-04-23 21:16:28,100 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_grade_v2
+[2020-04-23 21:16:28,105 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.get_notice_v2
+[2020-04-23 21:16:28,106 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.login_v2
+[2020-04-23 21:16:28,230 load_plugin.py load_plugin 33] INFO 加载 plugins_v2.physical_fitness_test_v2
+[2020-04-23 21:16:28,232 load_plugin.py load_plugins 66] INFO 成功加载 8 个模块
+[2020-04-23 21:16:28,307 load_task.py load_task 17] INFO 加载 tasks.check_proxy
+[2020-04-23 21:16:28,317 load_task.py load_task 17] INFO 加载 tasks.update_news
+[2020-04-23 21:16:28,318 load_task.py load_tasks 50] INFO 成功加载 2 个任务
+[2020-04-23 21:16:31,139 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:16:31,141 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 412 525.90ms
+[2020-04-23 21:16:34,772 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:16:34,773 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 412 339.55ms
+[2020-04-23 21:16:36,130 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:16:36,130 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 412 335.74ms
+[2020-04-23 21:16:37,451 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:16:37,452 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 412 332.11ms
+[2020-04-23 21:16:38,740 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:16:38,742 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 412 341.53ms
+[2020-04-23 21:16:57,033 index.py cache_request 138] INFO 缓存 /v2/notice/GetNewNotice?
+[2020-04-23 21:16:57,034 pywsgi.py write 1191] INFO 127.0.0.1 200 "GET /v2/notice/GetNewNotice HTTP/1.1" 412 334.70ms
+[2020-04-23 21:26:28,318 update_news.py update_article 24] INFO 开始更新 news
+[2020-04-23 21:26:29,072 update_news.py update_article 75] INFO 完成更新 news
+[2020-04-23 21:26:29,072 update_news.py update_article 24] INFO 开始更新 notice
+[2020-04-23 21:26:29,497 update_news.py update_article 75] INFO 完成更新 notice
+[2020-04-23 21:26:29,497 update_news.py update_article 24] INFO 开始更新 academic
+[2020-04-23 21:26:29,872 update_news.py update_article 75] INFO 完成更新 academic
+[2020-04-23 21:36:28,319 update_news.py update_article 24] INFO 开始更新 news
+[2020-04-23 21:36:28,768 update_news.py update_article 75] INFO 完成更新 news
+[2020-04-23 21:36:28,769 update_news.py update_article 24] INFO 开始更新 notice
+[2020-04-23 21:36:29,174 update_news.py update_article 75] INFO 完成更新 notice
+[2020-04-23 21:36:29,175 update_news.py update_article 24] INFO 开始更新 academic
+[2020-04-23 21:36:29,592 update_news.py update_article 75] INFO 完成更新 academic
+[2020-04-23 21:46:28,317 update_news.py update_article 24] INFO 开始更新 news
+[2020-04-23 21:46:28,710 update_news.py update_article 75] INFO 完成更新 news
+[2020-04-23 21:46:28,710 update_news.py update_article 24] INFO 开始更新 notice
+[2020-04-23 21:46:29,067 update_news.py update_article 75] INFO 完成更新 notice
+[2020-04-23 21:46:29,067 update_news.py update_article 24] INFO 开始更新 academic
+[2020-04-23 21:46:29,403 update_news.py update_article 75] INFO 完成更新 academic

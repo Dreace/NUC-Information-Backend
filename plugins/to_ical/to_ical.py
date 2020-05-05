@@ -1,6 +1,5 @@
 import hashlib
 import json
-import logging
 import os
 import random
 import re
@@ -14,7 +13,7 @@ from icalendar import Calendar, Event
 from pytz import timezone
 from qiniu import Auth, put_file
 
-from .config import ical_file_path, qiniu_access_key, qiniu_secret_key
+from global_config import qiniu_access_key, qiniu_secret_key
 
 cst_tz = timezone('Asia/Shanghai')
 utc_tz = timezone('UTC')
@@ -39,13 +38,13 @@ def display(cal):
 
 
 def write_ics_file(name, ics_text):
-    with open(ical_file_path + name, "w", encoding='utf-8') as file:
+    path_name = "./files/" + name
+    with open(path_name, "w", encoding='utf-8') as file:
         file.write(display(ics_text))
     key = 'files/%s' % name
     token = q.upload_token(bucket_name, key, 3600)
-    ret, info = put_file(token, key, ical_file_path + name)
-    os.remove(ical_file_path + name)
-    logging.debug(info)
+    ret, info = put_file(token, key, path_name)
+    os.remove(path_name)
 
 
 def generate_random_str(random_length=16):

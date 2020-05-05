@@ -4,7 +4,7 @@ import logging
 import psutil as psutil
 from influxdb import InfluxDBClient
 
-from scheduler import scheduler
+from utils.scheduler import scheduler
 
 client = InfluxDBClient('localhost', 18086, database="nuc_information_log")
 

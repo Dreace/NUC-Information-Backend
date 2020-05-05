@@ -1,8 +1,7 @@
 from flask import Blueprint
 from flask import request
 from flask import Response
-from flask import current_app
-from redis_connect import redis_token
+from utils.redis_connections import redis_token
 import hashlib
 import base64
 import random

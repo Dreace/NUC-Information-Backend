@@ -10,11 +10,11 @@ from . import api
 from .config import *
 
 BS = AES.block_size  # aes数据分组长度为128 bit
-key = AES.new("76a9c9f0e5ae4d2d84bf6eda1613ddbf", AES.MODE_ECB)
+key = AES.new("76a9c9f0e5ae4d2d84bf6eda1613ddbf".encode(), AES.MODE_ECB)
 
 
 def pad(m):
-    return m + chr(16 - len(m) % 16) * (16 - len(m) % 16)
+    return (m + chr(16 - len(m) % 16) * (16 - len(m) % 16)).encode()
 
 
 def sign(args: dict):

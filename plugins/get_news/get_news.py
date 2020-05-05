@@ -3,7 +3,7 @@ import json
 from flask import Response
 from flask import request
 
-from redis_connect import redis_news
+from utils.redis_connections import redis_news
 from . import api
 
 
@@ -33,7 +33,7 @@ def get_news(op, page, id_, type_id):
         data = {"count": cnt}
     elif op == "2":
         page -= 1
-        news_list = redis_news.lrange(type_name + "_list", page * 10, page * 10 + 9)
+        news_list = redis_news.lrange(type_name + "_list", page * 15, page * 15 + 14)
         new_list = []
         for i in news_list:
             new_list.append(json.loads(i))

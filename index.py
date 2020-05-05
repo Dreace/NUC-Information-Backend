@@ -3,10 +3,9 @@ import gevent.monkey
 gevent.monkey.patch_all()
 import time
 
-from global_config import guest_data, appSecret, dont_cache_url, stopped_list, need_proxy_url
-import load_task
-from scheduler import scheduler
-import plugin
+from global_config import guest_data, appSecret, dont_cache_url, stopped_list, need_proxy_url, no_limit_url
+from startup import load_task, load_plugin
+from utils.scheduler import scheduler
 from pywsgi import WSGIServer
 from os import path
 from flask import Flask, redirect, request, Response, g
@@ -15,8 +14,8 @@ import traceback
 import flask_compress
 from urllib.parse import unquote, quote
 import json
-from redis_connect import redis_request_limit, redis_cache
-from logger import root_logger
+from utils.redis_connections import redis_request_limit, redis_cache
+from utils.logger import root_logger
 import logging
 from utils.gol import global_values
 
@@ -24,7 +23,7 @@ app = Flask(__name__)
 flask_compress.Compress(app)
 
 
-# @app.errorhandler(404)
+@app.errorhandler(404)
 def page_not_found(e):
     app.logger.warning("由于 404 重定向 %s", request.url)
     return redirect('https://dreace.top')
@@ -47,7 +46,7 @@ def a():
     g.request_start_time = time.time()
 
 
-# @app.before_request
+@app.before_request
 def check_auth():
     message = "OK"
     error = ""
@@ -65,26 +64,26 @@ def check_auth():
     name = request.args.get('name', "")
     args = dict(request.args)
     if request.url.find("MessagePush") == -1:
-        # if not check_sign(args):
-        #     logging.warning("身份认证失败")
-        #     message = "身份认证失败"
-        #     error = "身份认证失败"
-        #     code = -2
-        # if "ts" not in args.keys() or int(args["ts"]) + 3e5 < int(time.time() * 1000):
-        #     logging.warning("拒绝本次请求")
-        #     message = "拒绝本次请求"
-        #     error = "拒绝本次请求"
-        #     code = -2
+        if not check_sign(args):
+            logging.warning("身份认证失败")
+            message = "身份认证失败"
+            error = "身份认证失败"
+            code = -2
+        if "ts" not in args.keys() or int(args["ts"]) + 3e5 < int(time.time() * 1000):
+            logging.warning("拒绝本次请求")
+            message = "拒绝本次请求"
+            error = "拒绝本次请求"
+            code = -2
         # if name and time.localtime(time.time())[3] < 7:
         #     logging.warning("非服务时间", )
         #     message = "非服务时间"
         #     error = "非服务时间"
         #     code = -1
-        # elif request.path[1:] not in no_limit_url and not check_request_limit(request.args["key"]):
-        #     logging.warning("拒绝了 %s 的请求", request.args["key"])
-        #     message = "操作过频繁"
-        #     error = "操作过频繁"
-        #     code = -5
+        elif request.path[1:] not in no_limit_url and not check_request_limit(request.args["key"]):
+            logging.warning("拒绝了 %s 的请求", request.args["key"])
+            message = "操作过频繁"
+            error = "操作过频繁"
+            code = -5
         if name == "guest" and request.path[1:] in guest_data.keys():
             data = guest_data[request.path[1:]]
         if request.path[1:] in need_proxy_url and not global_values.get_value("proxy_status_ok"):
@@ -158,11 +157,11 @@ def check_request_limit(user_key):
 
 def initializer(context=None):
     global_values.set_value("proxy_status_ok", True)
-    plugins = plugin.load_plugins(
+    plugins = load_plugin.load_plugins(
         path.join(path.dirname(__file__), 'plugins'),
         'plugins'
     )
-    plugins.union(plugin.load_plugins(
+    plugins.union(load_plugin.load_plugins(
         path.join(path.dirname(__file__), 'plugins_v2'),
         'plugins_v2'
     ))

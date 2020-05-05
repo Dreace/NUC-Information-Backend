@@ -1,10 +1,9 @@
 import json
-import logging
 
 from flask import Response
 from flask import request
 
-from mysql_connect import classroom_cursor as cursor, classroom_db as db
+from utils.sql_helper import SQLHelper
 from . import api
 
 
@@ -42,9 +41,8 @@ def get_idle_classroom_list(building, class_with_week, week):
     if str.isdigit(week[1:]) and int(week[1:]) <= 20:
         args = (building, class_with_week, week)
         sql = "select * from idle_classroom where building = '%s' and class_with_week = '%s' and `%s` = 1" % args
-        db.ping(reconnect=True)
-        cursor.execute(sql)
-        results = cursor.fetchall()
+        results = SQLHelper.fetch_all(sql)
         for row in results:
             data.append(row[2])
+        # TODO 若重新启用，把上面改为列名
     return {"message": message, "error": error, "code": code, "data": data}

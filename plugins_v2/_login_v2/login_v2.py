@@ -6,7 +6,7 @@ import requests
 import rsa
 
 from global_config import proxies
-from redis_connect import redis_session
+from utils.redis_connections import redis_session
 from .config import index_url, public_key_url, test_url
 
 

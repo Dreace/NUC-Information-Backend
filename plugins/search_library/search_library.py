@@ -2,6 +2,7 @@ import re
 import traceback
 from urllib.parse import quote
 
+import bs4
 import requests
 from flask import Response
 from flask import request

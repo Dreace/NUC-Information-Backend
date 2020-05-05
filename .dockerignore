@@ -1,0 +1,9 @@
+**/__pycache__
+**/pytest
+**/.idea
+log/**log**
+test.py
+test_config.py
+venv
+.git
+.gitignore
