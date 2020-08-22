@@ -7,3 +7,5 @@ test_config.py
 venv
 .git
 .gitignore
+/api.env
+/.qiniu_pythonsdk_hostscache.json

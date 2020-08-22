@@ -1,0 +1,516 @@
+{
+  "/v3/timetable": [
+    {
+      "id": "B03070603",
+      "name": "单片机原理及应用",
+      "credit": "3",
+      "testType": "考试",
+      "teacher": "李顺增",
+      "weeks": "1-8周",
+      "color": 0,
+      "dayOfWeek": "1",
+      "start": "1",
+      "length": 2,
+      "building": "本部",
+      "classroom": "15208H"
+    },
+    {
+      "id": "B03070806",
+      "name": "网络安全技术",
+      "credit": "2.5",
+      "testType": "考试",
+      "teacher": "庞晓琼",
+      "weeks": "1-8周",
+      "color": 1,
+      "dayOfWeek": "1",
+      "start": "3",
+      "length": 2,
+      "building": "本部",
+      "classroom": "04103H"
+    },
+    {
+      "id": "B06070612",
+      "name": "网络编程",
+      "credit": "2",
+      "testType": "考试",
+      "teacher": "张建华",
+      "weeks": "9-14周",
+      "color": 2,
+      "dayOfWeek": "2",
+      "start": "1",
+      "length": 2,
+      "building": "本部",
+      "classroom": "15208H"
+    },
+    {
+      "id": "B03070601",
+      "name": "编译原理",
+      "credit": "3.5",
+      "testType": "考试",
+      "teacher": "师智斌",
+      "weeks": "1-13周",
+      "color": 3,
+      "dayOfWeek": "2",
+      "start": "3",
+      "length": 2,
+      "building": "本部",
+      "classroom": "15604H"
+    },
+    {
+      "id": "B03070602",
+      "name": "微机原理与汇编语言",
+      "credit": "5",
+      "testType": "考试",
+      "teacher": "乔道迹",
+      "weeks": "1-16周",
+      "color": 4,
+      "dayOfWeek": "2",
+      "start": "5",
+      "length": 2,
+      "building": "本部",
+      "classroom": "15402H"
+    },
+    {
+      "id": "B03070806",
+      "name": "网络安全技术",
+      "credit": "2.5",
+      "testType": "考试",
+      "teacher": "庞晓琼",
+      "weeks": "1-8周",
+      "color": 5,
+      "dayOfWeek": "3",
+      "start": "3",
+      "length": 2,
+      "building": "本部",
+      "classroom": "04103H"
+    },
+    {
+      "id": "B01100006",
+      "name": "形势与政策",
+      "credit": "2",
+      "testType": "考查",
+      "teacher": "张慧玲",
+      "weeks": "15-18周",
+      "color": 6,
+      "dayOfWeek": "3",
+      "start": "3",
+      "length": 2,
+      "building": "本部",
+      "classroom": "07104H"
+    },
+    {
+      "id": "B03070601",
+      "name": "编译原理",
+      "credit": "3.5",
+      "testType": "考试",
+      "teacher": "师智斌",
+      "weeks": "1-13周",
+      "color": 7,
+      "dayOfWeek": "4",
+      "start": "1",
+      "length": 2,
+      "building": "本部",
+      "classroom": "15310H"
+    },
+    {
+      "id": "B01250002",
+      "name": "大学生职业发展与就业指导",
+      "credit": "1.0",
+      "testType": "未安排",
+      "teacher": "魏春燕",
+      "weeks": "14-19周",
+      "color": 8,
+      "dayOfWeek": "4",
+      "start": "3",
+      "length": 2,
+      "building": "本部",
+      "classroom": "07102H"
+    },
+    {
+      "id": "B06070612",
+      "name": "网络编程",
+      "credit": "2",
+      "testType": "考试",
+      "teacher": "张建华",
+      "weeks": "9-14周",
+      "color": 9,
+      "dayOfWeek": "4",
+      "start": "5",
+      "length": 2,
+      "building": "本部",
+      "classroom": "15102H"
+    },
+    {
+      "id": "B03070602",
+      "name": "微机原理与汇编语言",
+      "credit": "5",
+      "testType": "考试",
+      "teacher": "乔道迹",
+      "weeks": "1-16周",
+      "color": 10,
+      "dayOfWeek": "4",
+      "start": "7",
+      "length": 2,
+      "building": "本部",
+      "classroom": "15402H"
+    },
+    {
+      "id": "B03070603",
+      "name": "单片机原理及应用",
+      "credit": "3",
+      "testType": "考试",
+      "teacher": "李顺增",
+      "weeks": "1-8周",
+      "color": 11,
+      "dayOfWeek": "5",
+      "start": "1",
+      "length": 2,
+      "building": "本部",
+      "classroom": "15208H"
+    },
+    {
+      "name": "Linux实用技术刘冬明(共6周)/9-14周"
+    }
+  ],
+  "/v3/grade": [
+    [
+      {
+        "name": "思想道德修养与法律基础",
+        "credit": "",
+        "grade": 77,
+        "gradePoint": "2.70"
+      },
+      {
+        "name": "大学生实用心理学",
+        "credit": "",
+        "grade": 89,
+        "gradePoint": "3.90"
+      },
+      {
+        "name": "大学英语A（1）",
+        "credit": "",
+        "grade": 76,
+        "gradePoint": "2.60"
+      },
+      {
+        "name": "体育（1）",
+        "credit": "",
+        "grade": 80,
+        "gradePoint": "3.00"
+      },
+      {
+        "name": "安全教育",
+        "credit": "",
+        "grade": 83,
+        "gradePoint": "3.30"
+      },
+      {
+        "name": "军训（含军事理论）",
+        "credit": "",
+        "grade": 93,
+        "gradePoint": "4.30"
+      },
+      {
+        "name": "程序设计基础",
+        "credit": "",
+        "grade": 91,
+        "gradePoint": "4.10"
+      },
+      {
+        "name": "高等数学A （1）",
+        "credit": "",
+        "grade": 74,
+        "gradePoint": "2.40"
+      },
+      {
+        "name": "线性代数A",
+        "credit": "",
+        "grade": 78,
+        "gradePoint": "2.80"
+      }
+    ],
+    [
+      {
+        "name": "中国近现代史纲要",
+        "credit": "",
+        "grade": 84,
+        "gradePoint": "3.40"
+      },
+      {
+        "name": "大学英语A（2）",
+        "credit": "",
+        "grade": 70,
+        "gradePoint": "2.00"
+      },
+      {
+        "name": "体育（2）",
+        "credit": "",
+        "grade": 80,
+        "gradePoint": "3.00"
+      },
+      {
+        "name": "大学生职业发展与就业指导",
+        "credit": "",
+        "grade": 95,
+        "gradePoint": "4.50"
+      },
+      {
+        "name": "离散数学",
+        "credit": "",
+        "grade": 84,
+        "gradePoint": "3.40"
+      },
+      {
+        "name": "高等数学A （2）",
+        "credit": "",
+        "grade": 60,
+        "gradePoint": "1.00"
+      },
+      {
+        "name": "大学物理A （1）",
+        "credit": "",
+        "grade": 62,
+        "gradePoint": "1.20"
+      },
+      {
+        "name": "摄影艺术",
+        "credit": "",
+        "grade": 86,
+        "gradePoint": "3.50"
+      },
+      {
+        "name": "竞赛算法编程实验（初级）",
+        "credit": "",
+        "grade": 95,
+        "gradePoint": ""
+      },
+      {
+        "name": "竞赛算法编程实验（中级）",
+        "credit": "",
+        "grade": 95,
+        "gradePoint": ""
+      },
+      {
+        "name": "竞赛算法编程实验（高级）",
+        "credit": "",
+        "grade": 95,
+        "gradePoint": ""
+      },
+      {
+        "name": "个人赛算法实验（初级）",
+        "credit": "",
+        "grade": 95,
+        "gradePoint": ""
+      },
+      {
+        "name": "个人赛算法实验（高级）",
+        "credit": "",
+        "grade": 95,
+        "gradePoint": ""
+      },
+      {
+        "name": "影视鉴赏",
+        "credit": "",
+        "grade": 98,
+        "gradePoint": ""
+      }
+    ],
+    [
+      {
+        "name": "创业基础",
+        "credit": "",
+        "grade": 87,
+        "gradePoint": "3.70"
+      },
+      {
+        "name": "马克思主义基本原理概论",
+        "credit": "",
+        "grade": 64,
+        "gradePoint": "1.40"
+      },
+      {
+        "name": "大学英语A（3）",
+        "credit": "",
+        "grade": 70,
+        "gradePoint": "2.00"
+      },
+      {
+        "name": "体育（3）",
+        "credit": "",
+        "grade": 68,
+        "gradePoint": "1.80"
+      },
+      {
+        "name": "电路电子技术",
+        "credit": "",
+        "grade": 63,
+        "gradePoint": "1.30"
+      },
+      {
+        "name": "数据结构",
+        "credit": "",
+        "grade": 73,
+        "gradePoint": "2.30"
+      },
+      {
+        "name": "概率论与数理统计B",
+        "credit": "",
+        "grade": 60,
+        "gradePoint": "1.00"
+      },
+      {
+        "name": "大学物理A （2）",
+        "credit": "",
+        "grade": 60,
+        "gradePoint": "1.00"
+      },
+      {
+        "name": "大学物理实验 （1）",
+        "credit": "",
+        "grade": 75,
+        "gradePoint": "2.50"
+      },
+      {
+        "name": "数据结构课程设计",
+        "credit": "",
+        "grade": 95,
+        "gradePoint": "4.50"
+      },
+      {
+        "name": "计算机安装与维护",
+        "credit": "",
+        "grade": 85,
+        "gradePoint": "3.50"
+      },
+      {
+        "name": "从“愚昧”到“科学”：科学技术简史",
+        "credit": "",
+        "grade": 88,
+        "gradePoint": ""
+      },
+      {
+        "name": "探索发现：生命",
+        "credit": "",
+        "grade": 93,
+        "gradePoint": ""
+      }
+    ],
+    [
+      {
+        "name": "毛泽东思想和中国特色社会主义理论体系概论",
+        "credit": "",
+        "grade": 71,
+        "gradePoint": "2.10"
+      },
+      {
+        "name": "大学英语A（4）",
+        "credit": "",
+        "grade": 90,
+        "gradePoint": "4.00"
+      },
+      {
+        "name": "体育（4）",
+        "credit": "",
+        "grade": 68,
+        "gradePoint": "1.80"
+      },
+      {
+        "name": "社会实践",
+        "credit": "",
+        "grade": 85,
+        "gradePoint": "3.50"
+      },
+      {
+        "name": "面向对象程序设计（C++）",
+        "credit": "",
+        "grade": 92,
+        "gradePoint": "4.20"
+      },
+      {
+        "name": "算法分析与设计",
+        "credit": "",
+        "grade": 87,
+        "gradePoint": "3.70"
+      },
+      {
+        "name": "计算机网络基础",
+        "credit": "",
+        "grade": 82,
+        "gradePoint": "3.20"
+      },
+      {
+        "name": "大学物理实验 （2）",
+        "credit": "",
+        "grade": 84,
+        "gradePoint": "3.40"
+      },
+      {
+        "name": "算法程序设计实验周",
+        "credit": "",
+        "grade": 95,
+        "gradePoint": "4.50"
+      }
+    ],
+    [
+      {
+        "name": "公益劳动",
+        "credit": "",
+        "grade": 95,
+        "gradePoint": "4.50"
+      },
+      {
+        "name": "金工实习C",
+        "credit": "",
+        "grade": 94,
+        "gradePoint": "4.40"
+      },
+      {
+        "name": "数据库原理及应用",
+        "credit": "",
+        "grade": 82,
+        "gradePoint": "3.20"
+      },
+      {
+        "name": "JAVA程序设计基础",
+        "credit": "",
+        "grade": 97,
+        "gradePoint": "4.70"
+      },
+      {
+        "name": "软件工程",
+        "credit": "",
+        "grade": 83,
+        "gradePoint": "3.30"
+      },
+      {
+        "name": "操作系统",
+        "credit": "",
+        "grade": 75,
+        "gradePoint": "2.50"
+      },
+      {
+        "name": "计算机组成原理",
+        "credit": "",
+        "grade": 84,
+        "gradePoint": "3.40"
+      },
+      {
+        "name": "数值分析",
+        "credit": "",
+        "grade": 86,
+        "gradePoint": "3.50"
+      },
+      {
+        "name": "数据库课程实验周",
+        "credit": "",
+        "grade": 85,
+        "gradePoint": "3.50"
+      }
+    ]
+  ],
+  "/v3/balance/guest": {
+    "balance": "233",
+    "name": "游客",
+    "time": "2333-1-1 12:00"
+  }
+}

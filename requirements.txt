@@ -1,3 +1,5 @@
+Flask-SQLAlchemy
+gevent-pika
 influxdb-logging
 PyCryptodome
 cryptography
