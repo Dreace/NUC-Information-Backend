@@ -35,7 +35,7 @@ def cache(cache_args: set, expire: int = 600):
             else:
                 res: dict = f(*args, **kwargs)
                 if res.get('code', -1) == 0:
-                    redis_cache.set(cache_key_md5, json.dumps(res), expire)
+                    redis_cache.set(cache_key_md5, json.dumps(res), ex=expire)
                     logging.info("缓存 %s", unquote(cache_key))
                 return res
 

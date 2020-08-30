@@ -6,28 +6,28 @@ from utils.decorators.cache import cache
 from utils.decorators.check_sign import check_sign
 from utils.decorators.need_proxy import need_proxy
 from utils.decorators.request_limit import request_limit
-from utils.exceptions import custom_abort,CustomHTTPException
-from . import api
-from .config import class_timetable_url, pre_class_timetable_url
+from utils.exceptions import custom_abort, CustomHTTPException
+from utils.session import session
+from . import api, config
 
 
 @api.route('/classTimetable/<string:class_name>', methods=['GET'])
 @check_sign(set())
 @request_limit()
 @need_proxy()
-@cache(set(), expire=86400)
+@cache(set())
 def handle_class_timetable(class_name: str):
     if not class_name:
         custom_abort(-6, '空关键词')
-    session = None
+    cookies = {}
     try:
-        session = login(NAME, PASSWD)
-    except CustomHTTPException as e:
+        cookies = login(NAME, PASSWD)
+    except CustomHTTPException:
         logging.warning('全局账号登录失败')
         custom_abort(-6, '查询失败')
     post_data = {
-        'xnm': '2019',
-        'xqm': '12',
+        'xnm': '2020',
+        'xqm': '3',
         'xqh_id': '01',
         'njdm_id': '',
         'jg_id': '',
@@ -37,14 +37,14 @@ def handle_class_timetable(class_name: str):
         '_search': 'false',
         'queryModel.showCount': '1',
     }
-    pre_data_json = session.post(pre_class_timetable_url, data=post_data).json()
+    pre_data_json = session.post(config.pre_class_timetable_url, data=post_data, cookies=cookies).json()
     if not pre_data_json['items']:
         custom_abort(-6, '无效的班级号')
     post_data = {
-        'xnm': '2019',
-        'xqm': '12',
-        'xnmc': '2019-2020',
-        'xqmmc': '2',
+        'xnm': '2020',
+        'xqm': '3',
+        'xnmc': '2020-2021',
+        'xqmmc': '1',
         'xqh_id': '01',
         'njdm_id': pre_data_json['items'][0]['njdm_id'],
         'zyh_id': pre_data_json['items'][0]['zyh_id'],
@@ -53,7 +53,7 @@ def handle_class_timetable(class_name: str):
         'tjkbzxsdm': '0',
         # 'zxszjjs': True
     }
-    timetable = session.post(class_timetable_url, data=post_data).json()
+    timetable = session.post(config.class_timetable_url, data=post_data, cookies=cookies).json()
     timetable_items = []
     cnt = 0
     name_dict = {}

@@ -16,7 +16,7 @@ def handle_course():
     keywords = request.args.get('keywords', '')
     keywords = pymysql.escape_string(keywords)
     keywords_map = ''.join(map(lambda k: '(?=.*%s)' % k, keywords.split(' ')))
-    sql = "SELECT * FROM `课程-2020-1` WHERE CONCAT_WS('', `学院`, `课程名`, `教师`) REGEXP '%s^.*$'" % keywords_map
+    sql = "SELECT * FROM `课程-2020-2` WHERE CONCAT_WS('', `学院`, `课程名`, `教师`) REGEXP '%s^.*$'" % keywords_map
     course_items = []
     for index, row in enumerate(SQLHelper.fetch_all(sql)):
         course_items.append({

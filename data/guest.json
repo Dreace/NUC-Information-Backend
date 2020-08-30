@@ -9,7 +9,7 @@
       "weeks": "1-8周",
       "color": 0,
       "dayOfWeek": "1",
-      "start": "1",
+      "start": 1,
       "length": 2,
       "building": "本部",
       "classroom": "15208H"
@@ -23,7 +23,7 @@
       "weeks": "1-8周",
       "color": 1,
       "dayOfWeek": "1",
-      "start": "3",
+      "start": 3,
       "length": 2,
       "building": "本部",
       "classroom": "04103H"
@@ -37,7 +37,7 @@
       "weeks": "9-14周",
       "color": 2,
       "dayOfWeek": "2",
-      "start": "1",
+      "start": 1,
       "length": 2,
       "building": "本部",
       "classroom": "15208H"
@@ -51,7 +51,7 @@
       "weeks": "1-13周",
       "color": 3,
       "dayOfWeek": "2",
-      "start": "3",
+      "start": 3,
       "length": 2,
       "building": "本部",
       "classroom": "15604H"
@@ -65,7 +65,7 @@
       "weeks": "1-16周",
       "color": 4,
       "dayOfWeek": "2",
-      "start": "5",
+      "start": 5,
       "length": 2,
       "building": "本部",
       "classroom": "15402H"
@@ -79,7 +79,7 @@
       "weeks": "1-8周",
       "color": 5,
       "dayOfWeek": "3",
-      "start": "3",
+      "start": 3,
       "length": 2,
       "building": "本部",
       "classroom": "04103H"
@@ -93,7 +93,7 @@
       "weeks": "15-18周",
       "color": 6,
       "dayOfWeek": "3",
-      "start": "3",
+      "start": 3,
       "length": 2,
       "building": "本部",
       "classroom": "07104H"
@@ -107,7 +107,7 @@
       "weeks": "1-13周",
       "color": 7,
       "dayOfWeek": "4",
-      "start": "1",
+      "start": 1,
       "length": 2,
       "building": "本部",
       "classroom": "15310H"
@@ -121,7 +121,7 @@
       "weeks": "14-19周",
       "color": 8,
       "dayOfWeek": "4",
-      "start": "3",
+      "start": 3,
       "length": 2,
       "building": "本部",
       "classroom": "07102H"
@@ -135,7 +135,7 @@
       "weeks": "9-14周",
       "color": 9,
       "dayOfWeek": "4",
-      "start": "5",
+      "start": 5,
       "length": 2,
       "building": "本部",
       "classroom": "15102H"
@@ -149,7 +149,7 @@
       "weeks": "1-16周",
       "color": 10,
       "dayOfWeek": "4",
-      "start": "7",
+      "start": 7,
       "length": 2,
       "building": "本部",
       "classroom": "15402H"
@@ -163,7 +163,7 @@
       "weeks": "1-8周",
       "color": 11,
       "dayOfWeek": "5",
-      "start": "1",
+      "start": 1,
       "length": 2,
       "building": "本部",
       "classroom": "15208H"

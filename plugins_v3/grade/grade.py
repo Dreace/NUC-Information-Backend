@@ -11,8 +11,8 @@ from utils.decorators.guest import guest
 from utils.decorators.need_proxy import need_proxy
 from utils.decorators.request_limit import request_limit
 from utils.exceptions import custom_abort
-from . import api
-from .config import *
+from utils.session import session
+from . import api, config
 
 credentials = pika.PlainCredentials(global_config.rabbitmq['username'], global_config.rabbitmq['password'])
 connection = pika.BlockingConnection(
@@ -35,13 +35,13 @@ channel.queue_declare(queue='grade', durable=True)
 def handle_grade():
     name = request.args.get('name', type=str)
     passwd = request.args.get('passwd', type=str)
-    session = login(name, passwd)
+    cookies = login(name, passwd)
     post_data = {
         'xnm': '',
         'xqm': '',
         'queryModel.showCount': 1000,
     }
-    grade = session.post(grade_url, post_data).json()
+    grade = session.post(config.grade_url, post_data, cookies=cookies).json()
     grade_items = {}
     for item in grade['items']:
         dict_key = item['xnmmc'] + '-' + item['xqmmc']

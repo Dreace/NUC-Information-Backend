@@ -21,15 +21,17 @@ utc_tz = timezone('UTC')
 
 q = Auth(qiniu['access_key'], qiniu['secret_key'])
 bucket_name = 'blog_cdn'
+with open('static/firstWeekDateTime') as file:
+    first_week = file.read()
 
 
 @api.route('/timetable/export', methods=['POST'])
 @check_sign(set())
 @request_limit()
 def handle_to_ical():
-    arguments = request.get_json()
+    arguments: dict = request.get_json()
     timetable = arguments["timetable"]
-    first_monday = arguments["firstWeekDateTime"]
+    first_monday = arguments.get("firstWeekDateTime", first_week)
     rule = re.compile(r"[^a-zA-Z0-9\-,]")
     cal = Calendar()
     cal['version'] = '2.0'

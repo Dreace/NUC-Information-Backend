@@ -1,24 +1,21 @@
 # coding=utf-8
 import datetime
-import ssl
 from datetime import datetime
 
 import bs4
 import pytz
 import requests
 
-from global_config import proxies
 from utils.decorators.cache import cache
 from utils.decorators.check_sign import check_sign
 from utils.decorators.guest import guest
 from utils.decorators.request_limit import request_limit
 from utils.exceptions import custom_abort
-# from .config import proxies
 from . import api, config
 
-ssl._create_default_https_context = ssl._create_unverified_context
-
 cst_tz = pytz.timezone('Asia/Shanghai')
+session = requests.session()
+session.get(config.url1)
 
 
 @api.route('/balance/<string:name>', methods=['GET'])
@@ -31,9 +28,6 @@ def handle_balance(name: str):
     local_time_hour = time_now.timetuple()[3]
     if local_time_hour >= 22 or local_time_hour <= 1:
         custom_abort(-6, '非服务时间')
-    session = requests.session()
-    # session.proxies = proxies
-    session.get(config.url1)
     post_data = {
         'pageMark': '3',
         'paymentContent': 'busiCode=%s' % name,

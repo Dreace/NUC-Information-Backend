@@ -2,18 +2,16 @@ import base64
 import hashlib
 import time
 
-import requests
 from Crypto.Cipher import AES
 from flask import request
 
-from global_config import proxies
 from utils.decorators.cache import cache
 from utils.decorators.check_sign import check_sign
 from utils.decorators.need_proxy import need_proxy
 from utils.decorators.request_limit import request_limit
 from utils.exceptions import custom_abort
-from . import api
-from .config import *
+from utils.session import session
+from . import api, config
 
 BS = AES.block_size  # aes数据分组长度为128 bit
 key = AES.new('76a9c9f0e5ae4d2d84bf6eda1613ddbf'.encode(), AES.MODE_ECB)
@@ -40,12 +38,12 @@ def sign(args: dict) -> str:
 @request_limit()
 @need_proxy()
 def handle_captcha():
-    captcha_request = requests.get(captcha_code_url, proxies=proxies)
+    captcha_response = session.get(config.captcha_code_url)
     return {
         'code': 0,
         'data': {
-            'captchaBase64': base64.b64encode(captcha_request.content).decode(),
-            'JSESSIONID': captcha_request.cookies.get('JSESSIONID')
+            'captchaBase64': base64.b64encode(captcha_response.content).decode(),
+            'JSESSIONID': captcha_response.cookies.get('JSESSIONID')
         }
     }
 
@@ -60,10 +58,6 @@ def handle_login():
     if not name or not passwd:
         custom_abort(-2, '账号密码不能为空')
 
-    session = requests.session()
-    session.proxies = proxies
-    session.cookies.set('JSESSIONID', request.args.get('JSESSIONID', type=str))
-
     post_data = {
         'uname': base64.b64encode(key.encrypt(pad(name))).decode(),
         'pwd': base64.b64encode(key.encrypt(pad(passwd))).decode(),
@@ -71,10 +65,11 @@ def handle_login():
         'timestamp': int(time.time() * 1000)
     }
     post_data['sign'] = sign(post_data)
-    login_res = session.post(login_url, data=post_data, allow_redirects=False).json()
+    login_res = session.post(config.login_url, data=post_data, allow_redirects=False,
+                             cookies={'JSESSIONID': request.args.get('JSESSIONID', type=str)}).json()
     if login_res['returnMsg']:
         custom_abort(1, login_res['returnMsg'])
-    info_res = session.post(info_url).json()
+    info_res = session.post(config.info_url, cookies={'JSESSIONID': request.args.get('JSESSIONID', type=str)}).json()
     return {
         'code': 0,
         'data': {
@@ -94,7 +89,7 @@ def handle_list_grade(user_id: int):
         'timestamp': int(time.time() * 1000)
     }
     post_data['sign'] = sign(post_data)
-    res_json = requests.post(grade_list_url, proxies=proxies, data=post_data).json()
+    res_json = session.post(config.grade_list_url, data=post_data).json()
     if res_json['returnCode'] != '200':
         custom_abort(-1, res_json['returnMsg'])
     return {
@@ -114,7 +109,7 @@ def handle_grade_detail(grade_id: int):
         'timestamp': int(time.time() * 1000)
     }
     post_data['sign'] = sign(post_data)
-    res_json = requests.post(grade_detail_url, proxies=proxies, data=post_data).json()
+    res_json = session.post(config.grade_detail_url, data=post_data).json()
     if res_json['returnCode'] != '200':
         custom_abort(-1, res_json['returnMsg'])
     return {

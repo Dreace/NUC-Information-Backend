@@ -6,8 +6,8 @@ from utils.decorators.check_sign import check_sign
 from utils.decorators.guest import guest
 from utils.decorators.need_proxy import need_proxy
 from utils.decorators.request_limit import request_limit
-from . import api
-from .config import *
+from utils.session import session
+from . import api, config
 
 
 @api.route('/timetable', methods=['GET'])
@@ -19,12 +19,12 @@ from .config import *
 def handle_timetable():
     name = request.args.get('name', '')
     passwd = request.args.get('passwd', '')
-    session = login(name, passwd)
+    cookies = login(name, passwd)
     post_data = {
-        'xnm': 2019,
-        'xqm': 12
+        'xnm': 2020,
+        'xqm': 3
     }
-    timetable = session.post(timetable_url, data=post_data).json()
+    timetable = session.post(config.timetable_url, data=post_data, cookies=cookies).json()
     timetable_items = []
     cnt = 0
     name_dict = {}
@@ -35,8 +35,8 @@ def handle_timetable():
             cnt += 1
         timetable_items.append({
             'id': table.get('kch_id', ''),
-            'credit':table.get('xf',''),
-            'testType':table.get('khfsmc',''),
+            'credit': table.get('xf', ''),
+            'testType': table.get('khfsmc', ''),
             'name': table.get('kcmc', ''),
             'teacher': table.get('xm'),
             # 哪几周上课，形如”9-14周“

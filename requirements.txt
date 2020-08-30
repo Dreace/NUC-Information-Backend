@@ -10,6 +10,7 @@ qiniu
 html5lib
 flask-compress
 requests
+requests[socks]
 gevent
 pytz
 Flask

@@ -1,18 +1,16 @@
 import re
 
 import bs4
-import requests
 from flask import request
 
-from global_config import proxies
 from utils.decorators.cache import cache
 from utils.decorators.check_sign import check_sign
 from utils.decorators.need_proxy import need_proxy
 from utils.decorators.request_limit import request_limit
 from utils.decorators.stopped import stopped
 from utils.exceptions import custom_abort
-from . import api
-from .config import physical_login_url, physical_index_url
+from utils.session import session
+from . import api, config
 
 
 @api.route('/physical/login', methods=['GET'])
@@ -39,8 +37,8 @@ def handle_physical_login():
 def handle_physical_grade():
     name = request.args.get('name', "")
     passwd = request.args.get('passwd', "")
-    session = login(name, passwd)
-    r = session.get(physical_index_url)
+    cookies = login(name, passwd)
+    r = session.get(config.physical_index_url, cookies=cookies)
     html = r.content.decode("gbk")
     soup = bs4.BeautifulSoup(html, "html.parser")
     tds = soup.find_all(class_="forumRow")
@@ -71,15 +69,14 @@ def handle_physical_grade():
     }
 
 
-def login(name: str, passwd: str) -> requests.Session:
+def login(name: str, passwd: str) -> dict:
     if not name or not passwd:
         custom_abort(-3, '账号密码不能为空')
     if name.strip() != name:
         custom_abort(-3, '用户名包含空字符')
-    session = requests.session()
-    session.proxies = proxies
-    html = session.get(physical_index_url).content
-    reg = re.search('name=\"__VIEWSTATE\" value=\"(.{0,})\"', html)
+    html_response = session.get(config.physical_index_url)
+    cookies = html_response.cookies.get_dict()
+    reg = re.search('name=\"__VIEWSTATE\" value=\"(.{0,})\"', html_response.content)
     __VIEWSTATE = reg.group(1)
     post_data = {
         '__VIEWSTATE': __VIEWSTATE,
@@ -89,7 +86,7 @@ def login(name: str, passwd: str) -> requests.Session:
         'login1:btnLogin.x': '12',
         'login1:btnLogin.y': '6',
     }
-    r = session.post(physical_login_url, data=post_data)
+    r = session.post(config.physical_login_url, data=post_data, cookies=cookies)
     if r.content.decode("gbk").find(u"用户或密码错误") != -1:
         custom_abort(-3, '账号或密码错误')
-    return session
+    return cookies

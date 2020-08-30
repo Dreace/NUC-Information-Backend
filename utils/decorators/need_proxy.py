@@ -13,7 +13,7 @@ def need_proxy():
         @wraps(f)
         def decorated_function(*args, **kwargs) -> dict:
             if not global_values.get_value("proxy_status_ok"):
-                custom_abort(-2,'服务器网络故障')
+                custom_abort(-2, '无法连接学校网络')
             return f(*args, **kwargs)
 
         return decorated_function
