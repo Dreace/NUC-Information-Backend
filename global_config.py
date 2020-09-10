@@ -5,10 +5,8 @@ app_secret = ''
 NAME = ""
 PASSWD = ""
 proxies = {}
-# proxies = {}
 proxy_status_url = ""
 get_cookies_url = ""
-vpn_cookies = ""
 
 redis = {
     'host': '',

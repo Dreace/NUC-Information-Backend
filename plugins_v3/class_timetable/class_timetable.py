@@ -26,8 +26,8 @@ def handle_class_timetable(class_name: str):
         logging.warning('全局账号登录失败')
         custom_abort(-6, '查询失败')
     post_data = {
-        'xnm': '2020',
-        'xqm': '3',
+        'xnm': '2019',
+        'xqm': '12',
         'xqh_id': '01',
         'njdm_id': '',
         'jg_id': '',

@@ -14,8 +14,10 @@ from utils.decorators.need_proxy import need_proxy
 from utils.decorators.request_limit import request_limit
 from utils.exceptions import custom_abort
 from utils.gol import global_values
-from utils.session import session
 from . import api, config
+
+session = requests.session()
+session.verify = False
 
 requests.packages.urllib3.disable_warnings()
 

@@ -34,8 +34,8 @@ def check_sign(check_args: set):
                 if k in need_check_args:
                     arg_list.append(k + "=" + quote(request.args[k], safe="~()*!.\'"))
             url_args = quote(request.path) + "&".join(arg_list)
-            print(url_args)
-            print(hashlib.md5((url_args + app_secret).encode("utf-8")).hexdigest())
+            # print(url_args)
+            # print(hashlib.md5((url_args + app_secret).encode("utf-8")).hexdigest())
             if request.args["sign"] != hashlib.md5((url_args + app_secret).encode("utf-8")).hexdigest():
                 logging.warning('{} 请求签名校验失败'.format(request.args['key']))
                 custom_abort(-2, '请求签名校验失败')

@@ -5,6 +5,5 @@ log/**log**
 venv
 test.py
 test_config.py
-api.env
-/.qiniu_pythonsdk_hostscache.json
 venv
+/.qiniu_pythonsdk_hostscache.json

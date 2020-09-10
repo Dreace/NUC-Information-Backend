@@ -7,12 +7,14 @@ from global_config import proxy_status_url, get_cookies_url
 from utils.gol import global_values
 from utils.scheduler import scheduler
 
+session = requests.session()
+
 
 def check_proxy():
     try:
-        if requests.get(proxy_status_url).content.decode() == "ok":
+        if session.get(proxy_status_url).content.decode() == "ok":
             global_values.set_value("proxy_status_ok", True)
-            vpn_cookies = requests.get(get_cookies_url).content.decode()
+            vpn_cookies = session.get(get_cookies_url).content.decode()
             if not global_values.get_value("vpn_cookie"):
                 logging.info("已获取 VPN cookie：%s" % vpn_cookies)
             global_values.set_value("vpn_cookie", vpn_cookies)

@@ -19,7 +19,7 @@ class News(db.Model):
         return {
             "id": self.id_,
             "title": self.title,
-            "publish_time": self.publish_time.isoformat(),
+            "publishTime": self.publish_time.isoformat(),
             "content": self.content,
         }
 
@@ -32,5 +32,5 @@ class News(db.Model):
         return {
             "id": self.id_,
             "title": self.title,
-            "publish_time": self.publish_time.isoformat(),
+            "publishTime": self.publish_time.isoformat(),
         }

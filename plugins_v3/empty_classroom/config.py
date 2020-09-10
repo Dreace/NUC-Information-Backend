@@ -1,0 +1,1 @@
+empty_classroom_url = "http://222.31.49.139/jwglxt/cdjy/cdjy_cxKxcdlb.html?doType=query&gnmkdm=N2155"

@@ -47,16 +47,22 @@ def handle_to_ical():
         if "weeks" not in item:
             continue
         days = []
-        for j in rule.sub('', item["weeks"]).split(','):
+        for j in item["weeks"].split(','):
             if j.find('-') != -1:
-                d = j.split('-')
+                is_odd = j.find("单") != -1
+                is_even = j.find("双") != -1
+                d = rule.sub('', j).split('-')
                 for k in range(int(d[0]), int(d[1]) + 1):
+                    if is_even and k % 2 == 1:
+                        continue
+                    if is_odd and k % 2 == 0:
+                        continue
                     days.append(k)
             else:
                 if not j:
                     continue
                 else:
-                    days.append(int(j))
+                    days.append(int(rule.sub('', j)))
         for day in days:
             event = Event()
             dtstart_date = start_monday + relativedelta(
