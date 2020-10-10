@@ -30,3 +30,5 @@ rabbitmq = {
     'host': os.environ["RABBITMQ_HOST"],
     'port': int(os.environ["RABBITMQ_PORT"])
 }
+
+weather_key  = os.environ["WEATHER_KEY"]

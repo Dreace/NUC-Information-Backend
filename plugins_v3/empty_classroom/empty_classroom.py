@@ -36,15 +36,51 @@ def handle_empty_classroom(building_id: str, week_of_term: int, day_of_week: int
         room = {
             "location": item["cdlbmc"],
             "roomId": item["cdmc"],
-            "seats": item["zws"]
+            "seats": item["zws"],
+            "seatType": item.get("bz", "正常座椅")
         }
-        if "bz" in item.keys():
-            room["seatType"] = item["bz"]
-        else:
-            room["seatType"] = "正常座椅"
         data.append(room)
 
     return {
         'code': 0,
         'data': data
+    }
+
+
+@api.route(
+    "/emptyClassroom/<string:building_id>/<int:week_of_term>/<int:day_of_week>/<int:start_class>/<int:end_class>",
+    methods=['GET'])
+@cache(set())
+@request_limit()
+@need_proxy()
+@check_sign(set())
+def handle_filter_empty_classroom(building_id: str, week_of_term: int, day_of_week: int, start_class: int, end_class):
+    cookies = login(NAME, PASSWD)
+    section = 0
+    for i in range(start_class - 1, end_class):
+        section |= (1 << i)
+    post_data = {
+        "fwzt": "cx",  # 查询
+        "xnm": "2020",  # 学年
+        "xqm": "3",
+        "lh": building_id,  # 楼号
+        "jyfs": "0",  # 教育方式？？？
+        "zcd": 1 << (week_of_term - 1),  # zcd = 2**周次-1
+        "xqj": day_of_week,  # 星期几
+        "jcd": section,
+        "queryModel.showCount": "1001"
+    }
+    classrooms = session.post(config.empty_classroom_url, post_data, cookies=cookies).json()
+    classrooms = classrooms["items"]
+    res = []
+    for item in classrooms:
+        res.append({
+            "location": item["cdlbmc"],
+            "roomId": item["cdmc"],
+            "seats": item["zws"],
+            "seatType": item.get("bz", "正常座椅")
+        })
+    return {
+        'code': 0,
+        'data': res
     }

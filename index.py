@@ -23,7 +23,7 @@ app = Flask(__name__)
 flask_compress.Compress(app)
 
 app.config['SQLALCHEMY_BINDS'] = {
-    'nuc_info': 'mysql+pymysql://{}:{}@{}:3306/nuc_info'.format(mysql_config['user'], mysql_config['password'],
+    'nuc-info': 'mysql+pymysql://{}:{}@{}:3306/nuc_info'.format(mysql_config['user'], mysql_config['password'],
                                                                 mysql_config['host'])
 }
 
@@ -72,4 +72,5 @@ if __name__ == '__main__':
     # run_simple('0.0.0.0', 10001, app,
     #            use_reloader=True, use_debugger=True, use_evalex=True)
     http_server = WSGIServer(('0.0.0.0', 10050), app, log=root_logger, error_log=root_logger)
+    # http_server = WSGIServer(('0.0.0.0', 10001), app)
     http_server.serve_forever()

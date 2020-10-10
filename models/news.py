@@ -3,7 +3,7 @@ from models.sqlalchemy_db import db
 
 class News(db.Model):
     __tablename__ = 'news'
-    __bind_key__ = 'nuc_info'
+    __bind_key__ = 'nuc-info'
     type_ = db.Column('type', db.Integer, primary_key=True)
     id_ = db.Column('id', db.Integer, primary_key=True)
     title = db.Column('title', db.Text)

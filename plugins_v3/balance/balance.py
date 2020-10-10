@@ -6,6 +6,7 @@ import bs4
 import pytz
 import requests
 
+from global_config import proxies
 from utils.decorators.cache import cache
 from utils.decorators.check_sign import check_sign
 from utils.decorators.guest import guest
@@ -14,8 +15,6 @@ from utils.exceptions import custom_abort
 from . import api, config
 
 cst_tz = pytz.timezone('Asia/Shanghai')
-session = requests.session()
-session.get(config.url1)
 
 
 @api.route('/balance/<string:name>', methods=['GET'])
@@ -24,6 +23,9 @@ session.get(config.url1)
 @cache(set())
 @guest('guest', True)
 def handle_balance(name: str):
+    session = requests.session()
+    session.proxies = proxies
+    session.get(config.url1)
     time_now = datetime.now(cst_tz)
     local_time_hour = time_now.timetuple()[3]
     if local_time_hour >= 22 or local_time_hour <= 1:

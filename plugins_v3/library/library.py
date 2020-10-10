@@ -1,4 +1,3 @@
-import json
 import re
 import traceback
 from urllib.parse import quote
@@ -170,15 +169,16 @@ def book_detail(book_id) -> dict:
 
 
 def douban_book_cover(isbn: str) -> str:
+    default_url = "https://img1.doubanio.com/f/shire/5522dd1f5b742d1e1394a17f44d590646b63871d/pics/book-default-lpic" \
+                  ".gif"
     try:
-        url = "https://api.douban.com/v2/book/isbn/%s?apikey=0df993c66c0c636e29ecbb5344252a4a" % isbn
-        res = session.get(url, headers=config.douban_headers)
-        book_json = json.loads(res.content.decode())
-        if "images" in book_json.keys():
-            return book_json["images"]["small"]
-        else:
-            return "https://img1.doubanio.com/f/shire/5522dd1f5b742d1e1394a17f44d590646b63871d/pics/book-default-lpic" \
-                   ".gif "
+        response = session.get(
+            "https://api.douban.com/v2/book/isbn/{}?apikey=054022eaeae0b00e0fc068c0c0a2102a".format(isbn),
+            headers=config.douban_headers
+        )
+        if response.status_code != 200:
+            return default_url
+        return response.json().get('image', default_url)
     except requests.RequestException:
         traceback.print_exc()
-        return "https://img1.doubanio.com/f/shire/5522dd1f5b742d1e1394a17f44d590646b63871d/pics/book-default-lpic.gif"
+        return default_url

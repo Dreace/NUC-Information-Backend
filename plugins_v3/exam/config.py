@@ -1,0 +1,1 @@
+exam_url = "http://222.31.49.139/jwglxt/kwgl/kscx_cxXsksxxIndex.html?doType=query&gnmkdm=N358105&su=1908074113"

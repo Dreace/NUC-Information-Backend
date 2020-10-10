@@ -5,7 +5,7 @@ from models.sqlalchemy_db import db
 
 class Notice(db.Model):
     __tablename__ = 'notice'
-    __bind_key__ = 'nuc_info'
+    __bind_key__ = 'nuc-info'
     id_ = db.Column('id', db.Integer, primary_key=True)
     title = db.Column('标题', db.VARCHAR(255))
     time = db.Column('时间', db.TIMESTAMP, default=datetime.now())

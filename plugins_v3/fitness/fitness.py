@@ -65,11 +65,12 @@ def handle_login():
         'timestamp': int(time.time() * 1000)
     }
     post_data['sign'] = sign(post_data)
-    login_res = session.post(config.login_url, data=post_data, allow_redirects=False,
-                             cookies={'JSESSIONID': request.args.get('JSESSIONID', type=str)}).json()
+    login_resp = session.post(config.login_url, data=post_data, allow_redirects=False,
+                              cookies={'JSESSIONID': request.args.get('JSESSIONID', type=str)})
+    login_res = login_resp.json()
     if login_res['returnMsg']:
         custom_abort(1, login_res['returnMsg'])
-    info_res = session.post(config.info_url, cookies={'JSESSIONID': request.args.get('JSESSIONID', type=str)}).json()
+    info_res = session.post(config.info_url, cookies=login_resp.cookies.get_dict()).json()
     return {
         'code': 0,
         'data': {

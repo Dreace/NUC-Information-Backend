@@ -25,15 +25,15 @@ dictConfig({
             # 'maxBytes': 8 * 1024 * 1000,
             'backupCount': 7,
         },
-        # 'influx': {
-        #     'class': 'influxdb_logging.AsyncInfluxHandler',
-        #     'host': os.environ["INFLUXDB"],
-        #     'database': os.environ["INFLUXDB_DATABASE"]
-        # },
+        'influx': {
+            'class': 'influxdb_logging.AsyncInfluxHandler',
+            'host': os.environ["INFLUXDB"],
+            'database': os.environ["INFLUXDB_DATABASE"]
+        },
     },
     'root': {
         'level': 'INFO',
-        'handlers': ['console', 'file'],
+        'handlers': ['console', 'file', 'influx'],
     }
 })
 
