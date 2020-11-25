@@ -1,3 +1,4 @@
-public_key_url = "http://222.31.49.139/jwglxt/xtgl/login_getPublicKey.html"
-index_url = "http://222.31.49.139/jwglxt/xtgl/login_slogin.html"
-test_url = "http://222.31.49.139/jwglxt/xtgl/index_cxBczjsygnmk.html"
+public_key_url = "http://zhzb.nuc.edu.cn/cas/v2/getPubKey"
+index_url = "http://zhzb.nuc.edu.cn/cas/login"
+test_url = "http://newi.nuc.edu.cn/personal-center"
+

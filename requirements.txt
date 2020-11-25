@@ -21,3 +21,4 @@ python_dateutil
 icalendar
 pymysql
 DBUtils
+PyExecJS

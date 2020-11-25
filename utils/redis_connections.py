@@ -14,7 +14,7 @@ redis_token = redis.StrictRedis(host=redis_config['host'], port=redis_config['po
 
 redis_session = redis.StrictRedis(host=redis_config['host'], port=redis_config['port'],
                                   password=redis_config['password'],
-                                  encoding='utf8', decode_responses=True, db=2)
+                                  encoding='utf8', decode_responses=False, db=2)
 
 redis_cache = redis.StrictRedis(host=redis_config['host'], port=redis_config['port'], password=redis_config['password'],
                                 encoding='utf8', decode_responses=True, db=3)

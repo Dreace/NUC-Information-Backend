@@ -6,7 +6,8 @@ from requests.adapters import HTTPAdapter
 from global_config import proxies
 
 session = requests.Session()
-adapter = HTTPAdapter(pool_connections=100, pool_maxsize=100, max_retries=3)
+# adapter = HTTPAdapter(pool_connections=100, pool_maxsize=100, max_retries=3)
+adapter = HTTPAdapter(max_retries=3)
 session.mount('http://', adapter)
 session.mount('https://', adapter)
 session.proxies = proxies

@@ -11,7 +11,7 @@ def stopped():
     def decorator(f):
         @wraps(f)
         def decorated_function():
-            custom_abort(-4, '未开发查询')
+            custom_abort(-4, '暂停服务')
 
         return decorated_function
 

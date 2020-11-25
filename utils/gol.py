@@ -3,7 +3,7 @@ class GlobalValue():
         self._values = {}
 
     def get_value(self, key: str):
-        return self._values.get(key)
+        return self._values.get(key, None)
 
     def set_value(self, key: str, value):
         self._values[key] = value
